@@ -1,0 +1,13 @@
+.DS_Store
+.vscode/
+
+# build output
+*.elf
+*.nds
+*.o
+build/
+wasm3-build/
+wasm4-native-build/
+
+# game data
+data/

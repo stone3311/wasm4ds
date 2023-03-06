@@ -1,0 +1,6 @@
+[submodule "external/wasm3"]
+	path = external/wasm3
+	url = https://github.com/wasm3/wasm3.git
+[submodule "external/wasm4"]
+	path = external/wasm4
+	url = https://github.com/aduros/wasm4.git
