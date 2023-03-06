@@ -17,7 +17,7 @@ void interrupts_reset()
 void interrupts_wait_vblank()
 {
     while (!semaphore) {}
-	semaphore = 0;
+    semaphore = 0;
 }
 
 int interrupts_framecount()
@@ -27,6 +27,6 @@ int interrupts_framecount()
 
 void Vblank()
 {
-	frame++;
-	semaphore = 1;
+    frame++;
+    semaphore = 1;
 }

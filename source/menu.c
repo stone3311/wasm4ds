@@ -74,7 +74,7 @@ void menu_file_selection()
     struct dirent *entry = readdir(directory);
     while (entry != NULL)
     {
-	    if(entry->d_type != DT_DIR)
+        if(entry->d_type != DT_DIR)
         {
             consoleClear();
 
@@ -90,9 +90,9 @@ void menu_file_selection()
                 FILE* cart = fopen(entry->d_name, "rb");
 
                 int len;
-				fseek(cart, 0, SEEK_END);
-				len = ftell(cart);
-				fseek(cart, 0, SEEK_SET);
+                fseek(cart, 0, SEEK_END);
+                len = ftell(cart);
+                fseek(cart, 0, SEEK_SET);
 
                 uint8_t *data = (uint8_t*)malloc(len);
                 fread(data, 1, len, cart);
@@ -104,7 +104,7 @@ void menu_file_selection()
         }
 
         entry = readdir(directory);
-	}
+    }
 
     closedir(directory);
 }

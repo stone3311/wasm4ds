@@ -7,17 +7,17 @@
 
 int main()
 {
-	consoleDemoInit();
+    consoleDemoInit();
 
-	vramSetBankA(VRAM_A_LCD);
+    vramSetBankA(VRAM_A_LCD);
     videoSetMode(MODE_FB0);
 
-	interrupts_init();
+    interrupts_init();
 
-	if (!fatInitDefault())
-	{
-		iprintf("FAT init failed\n");
-	}
+    if (!fatInitDefault())
+    {
+        iprintf("FAT init failed\n");
+    }
 
-	menu();
+    menu();
 }
