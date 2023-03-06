@@ -1,0 +1,23 @@
+name: Compile
+
+on: [push, pull_request]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    container: devkitpro/devkitarm
+    steps:
+      - name: Install xxd
+        run: apt update && apt install -y xxd
+      - name: Checkout repository
+        uses: actions/checkout@v3
+        with:
+          submodules: recursive
+      - name: Compile
+        run: ./compile.sh
+      - name: Archive result
+        uses: actions/upload-artifact@v3
+        with:
+          name: wasm4ds.nds
+          path: wasm4ds.nds
+
