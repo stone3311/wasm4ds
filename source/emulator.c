@@ -10,6 +10,9 @@
 #include "wasm.h"
 #include "window.h"
 
+#define MAP_BUTTON(nds_button, w4_button) (gamepad = (keysCurrent() & nds_button ? gamepad | w4_button : gamepad))
+#define MAP_MOUSE(nds_button, w4_button) (mouse = (keysCurrent() & nds_button ? mouse | w4_button : mouse))
+
 const int x_offset = (SCREEN_WIDTH  - 160) / 2;
 const int y_offset = (SCREEN_HEIGHT - 160) / 2;
 
@@ -83,51 +86,24 @@ void emulator_loop(uint8_t* game_data, int game_data_length)
 
         uint8_t gamepad = 0;
 
-        if (keysCurrent() & KEY_X)
-        {
-            gamepad |= W4_BUTTON_X;
-        }
-        if (keysCurrent() & KEY_Y)
-        {
-            gamepad |= W4_BUTTON_Z;
-        }
+        MAP_BUTTON(KEY_X, W4_BUTTON_X);
+        MAP_BUTTON(KEY_Y, W4_BUTTON_Z);
 
-        if (keysCurrent() & KEY_UP)
-        {
-            gamepad |= W4_BUTTON_UP;
-        }
-        if (keysCurrent() & KEY_DOWN)
-        {
-            gamepad |= W4_BUTTON_DOWN;
-        }
-        if (keysCurrent() & KEY_LEFT)
-        {
-            gamepad |= W4_BUTTON_LEFT;
-        }
-        if (keysCurrent() & KEY_RIGHT)
-        {
-            gamepad |= W4_BUTTON_RIGHT;
-        }
+        MAP_BUTTON(KEY_UP,    W4_BUTTON_UP);
+        MAP_BUTTON(KEY_DOWN,  W4_BUTTON_DOWN);
+        MAP_BUTTON(KEY_LEFT,  W4_BUTTON_LEFT);
+        MAP_BUTTON(KEY_RIGHT, W4_BUTTON_RIGHT);
         w4_runtimeSetGamepad(0, gamepad);
 
-        uint8_t mouseButtons = 0;
+        uint8_t mouse = 0;
 
         touchPosition touch_pos;
         touchRead(&touch_pos);
 
-        if (keysCurrent() & KEY_TOUCH)
-        {
-            mouseButtons |= W4_MOUSE_LEFT;
-        }
-        if (keysCurrent() & KEY_R)
-        {
-            mouseButtons |= W4_MOUSE_RIGHT;
-        }
-        if (keysCurrent() & KEY_L)
-        {
-            mouseButtons |= W4_MOUSE_MIDDLE;
-        }
-        w4_runtimeSetMouse(touch_pos.px - x_offset, touch_pos.py - y_offset, mouseButtons);
+        MAP_MOUSE(KEY_TOUCH, W4_MOUSE_LEFT);
+        MAP_MOUSE(KEY_R, W4_MOUSE_RIGHT);
+        MAP_MOUSE(KEY_L, W4_MOUSE_MIDDLE);
+        w4_runtimeSetMouse(touch_pos.px - x_offset, touch_pos.py - y_offset, mouse);
 
         w4_runtimeUpdate();
         w4_frame++;
